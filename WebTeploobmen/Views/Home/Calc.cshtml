@@ -1,0 +1,85 @@
+﻿@using WebTeploobmen.Models
+@model HomeCalcViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-start">
+    <form action="/home/calc" method="post">
+        <div class="mb-3">
+            <label for="height" class="form-label">Высота слоя, м</label>
+            <input type="text" name="model.height" class="form-control" id="visota" value="@Model.height">
+            <div class="text-danger mt-1 d-none" id="error-visota">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="mattemp" class="form-label">Начальная температура материала, °С</label>
+            <input type="text" name="model.mattemp" class="form-control" id="mtemp" value="@Model.mattemp">
+            <div class="text-danger mt-1 d-none" id="error-mtemp">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="gaztemp" class="form-label">Начальная температура газа, °С</label>
+            <input type="text" name="model.gaztemp" class="form-control" id="gtemp" value="@Model.gaztemp">
+            <div class="text-danger mt-1 d-none" id="error-gtemp">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="haste" class="form-label">Скорость газа на свободное сечение шахты, м/с</label>
+            <input type="text" name="model.haste" class="form-control" id="skorostw" value="@Model.haste">
+            <div class="text-danger mt-1 d-none" id="error-skorostw">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="gaztepl" class="form-label">Средняя теплоемкость газа, кДж/(м^3 * К)</label>
+            <input type="text" name="model.gaztepl" class="form-control" id="gtepl" value="@Model.gaztepl">
+            <div class="text-danger mt-1 d-none" id="error-gtepl">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="rashod" class="form-label">Расход материалов, кг/с</label>
+            <input type="text" name="model.rashod" class="form-control" id="rashod" value="@Model.rashod">
+            <div class="text-danger mt-1 d-none" id="error-rashod">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="mattepl" class="form-label">Теплоемкость материалов, кДж/(кг * К)</label>
+            <input type="text" name="model.mattepl" class="form-control" id="matepl" value="@Model.mattepl">
+            <div class="text-danger mt-1 d-none" id="error-mattepl">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="koef" class="form-label">Объемный коэффициент теплоотдачи, Вт/(м^3 * К)</label>
+            <input type="text" name="model.koef" class="form-control" id="koef" value="@Model.koef">
+            <div class="text-danger mt-1 d-none" id="error-koef">Используйте запятую вместо точки!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="diametr" class="form-label">Диаметр аппарата, м</label>
+            <input type="text" name="model.diametr" class="form-control" id="diametr" value="@Model.diametr">
+            <div class="text-danger mt-1 d-none" id="error-diametr">Используйте запятую вместо точки!</div>
+        </div>
+
+        <button class="btn btn-primary">Сохранение данных</button>
+        <a href="/" class="btn btn-primary">На главную</a>
+    </form>
+
+    <script>
+        // Функция проверки ввода и отображения ошибки
+        function validateInput(input) {
+            const errorDiv = document.getElementById(`error-${input.id}`);
+            if (input.value.includes('.')) {
+                input.classList.add('is-invalid'); // Подсветка красным
+                errorDiv.classList.remove('d-none'); // Показать сообщение об ошибке
+            } else {
+                input.classList.remove('is-invalid'); // Убрать подсветку
+                errorDiv.classList.add('d-none'); // Скрыть сообщение об ошибке
+            }
+        }
+
+        // Применение проверки на все поля ввода
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            input.addEventListener('input', () => validateInput(input));
+        });
+    </script>
+</div>
